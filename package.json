@@ -1,0 +1,32 @@
+{
+  "name": "wl.node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "test": "jest --watch",
+    "coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamskicool/wl.node.git"
+  },
+  "author": "Adam Torkkeli-Johansson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamskicool/wl.node/issues"
+  },
+  "homepage": "https://github.com/adamskicool/wl.node#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.22",
+    "@types/node": "^12.12.7",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.4",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.7.2"
+  }
+}
