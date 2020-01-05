@@ -8,6 +8,6 @@
 		"password": "password",
 		"database": "workout_logger",
 		"synchronize": false,
-		"entities": ["src/entity/*.js"]
+		"entities": ["src/entity/*.ts"]
 	}
 ]

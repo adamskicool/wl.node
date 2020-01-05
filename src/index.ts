@@ -1,15 +1,14 @@
 require('dotenv').config();
 import 'reflect-metadata';
 import {createConnection} from 'typeorm';
-import express = require('express');
+const express = require('express');
+const route = require('./api/route');
 
 createConnection()
 	.then(async (connection) => {
 		const app = express();
 
-		app.get('/hello', (req, res) => {
-			res.send('Hello world');
-		});
+		route(app);
 
 		app.listen(process.env.API_PORT, () => {
 			console.log(`Server is listening on port: ${process.env.API_PORT}`);
