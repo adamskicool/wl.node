@@ -35,6 +35,13 @@ export class Workout {
 	})
 	name: string;
 
+	@Column('varchar', {
+		nullable: false,
+		length: 36,
+		name: 'userId'
+	})
+	userId: string;
+
 	@ManyToOne(
 		() => User,
 		(User: User) => User.workouts,
@@ -42,6 +49,13 @@ export class Workout {
 	)
 	@JoinColumn({name: 'userId'})
 	user: User | null;
+
+	@Column('varchar', {
+		nullable: false,
+		length: 36,
+		name: 'presetId'
+	})
+	presetId: string;
 
 	@ManyToOne(
 		() => WorkoutPreset,
