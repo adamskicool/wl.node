@@ -42,6 +42,13 @@ export class Exercise {
 	})
 	type: string | null;
 
+	@Column('varchar', {
+		nullable: false,
+		length: 36,
+		name: 'muscleAreaId'
+	})
+	muscleAreaId: string;
+
 	@ManyToOne(
 		() => MuscleArea,
 		(MuscleArea: MuscleArea) => MuscleArea.exercises,

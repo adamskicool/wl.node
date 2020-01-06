@@ -14,3 +14,9 @@ export const getAllExercises = async (): Promise<Exercise[]> => {
 export const getExerciseById = async (uuid: string): Promise<Exercise> => {
 	return exerciseRepository.findOne({where: {id: uuid}});
 };
+
+export const getExerciseByMuscleArea = async (
+	uuid: string
+): Promise<Exercise[]> => {
+	return exerciseRepository.find({where: {muscleAreaId: uuid}});
+};
