@@ -18,14 +18,16 @@ import {WorkoutPreset} from './WorkoutPreset';
 import {WorkoutSet} from './WorkoutSet';
 
 @Entity('Workout', {schema: 'workout_logger'})
-@Index('presetId', ['preset'])
 @Index('userId', ['user'])
+@Index('presetId', ['preset'])
 export class Workout {
-	@PrimaryGeneratedColumn({
-		type: 'int',
+	@Column('varchar', {
+		nullable: false,
+		primary: true,
+		length: 36,
 		name: 'id'
 	})
-	id: number;
+	id: string;
 
 	@Column('text', {
 		nullable: false,
@@ -44,7 +46,7 @@ export class Workout {
 	@ManyToOne(
 		() => WorkoutPreset,
 		(WorkoutPreset: WorkoutPreset) => WorkoutPreset.workouts,
-		{onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
+		{nullable: false, onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
 	)
 	@JoinColumn({name: 'presetId'})
 	preset: WorkoutPreset | null;

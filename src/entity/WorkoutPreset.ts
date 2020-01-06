@@ -18,11 +18,13 @@ import {Exercise} from './Exercise';
 
 @Entity('WorkoutPreset', {schema: 'workout_logger'})
 export class WorkoutPreset {
-	@PrimaryGeneratedColumn({
-		type: 'int',
+	@Column('varchar', {
+		nullable: false,
+		primary: true,
+		length: 36,
 		name: 'id'
 	})
-	id: number;
+	id: string;
 
 	@Column('varchar', {
 		nullable: false,
@@ -40,7 +42,9 @@ export class WorkoutPreset {
 
 	@ManyToMany(
 		() => Exercise,
-		(Exercise: Exercise) => Exercise.workoutPresets
+		(Exercise: Exercise) => Exercise.workoutPresets,
+		{nullable: false}
 	)
+	@JoinTable({name: 'PresetExercise'})
 	exercises: Exercise[];
 }

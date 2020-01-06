@@ -11,6 +11,6 @@ export const getAllExercises = async (): Promise<Exercise[]> => {
 	return exerciseRepository.find();
 };
 
-export const getExerciseById = async (id: number): Promise<Exercise> => {
-	return exerciseRepository.findOne({where: {id}});
+export const getExerciseById = async (uuid: string): Promise<Exercise> => {
+	return exerciseRepository.findOne({where: {id: uuid}});
 };

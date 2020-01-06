@@ -17,14 +17,16 @@ import {Workout} from './Workout';
 import {Exercise} from './Exercise';
 
 @Entity('WorkoutSet', {schema: 'workout_logger'})
-@Index('exerciseId', ['exercise'])
 @Index('workoutId', ['workout'])
+@Index('exerciseId', ['exercise'])
 export class WorkoutSet {
-	@PrimaryGeneratedColumn({
-		type: 'int',
+	@Column('varchar', {
+		nullable: false,
+		primary: true,
+		length: 36,
 		name: 'id'
 	})
-	id: number;
+	id: string;
 
 	@ManyToOne(
 		() => Workout,

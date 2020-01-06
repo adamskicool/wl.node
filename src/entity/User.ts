@@ -17,11 +17,13 @@ import {Workout} from './Workout';
 
 @Entity('User', {schema: 'workout_logger'})
 export class User {
-	@PrimaryGeneratedColumn({
-		type: 'int',
+	@Column('varchar', {
+		nullable: false,
+		primary: true,
+		length: 36,
 		name: 'id'
 	})
-	id: number;
+	id: string;
 
 	@Column('varchar', {
 		nullable: false,
