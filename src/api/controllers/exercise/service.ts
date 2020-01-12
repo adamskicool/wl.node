@@ -5,18 +5,18 @@
 import {getRepository, Repository} from 'typeorm';
 import {Exercise} from '../../../entity/Exercise';
 
-const exerciseRepository: Repository<Exercise> = getRepository(Exercise);
+const repository: Repository<Exercise> = getRepository(Exercise);
 
 export const getAllExercises = async (): Promise<Exercise[]> => {
-	return exerciseRepository.find();
+	return repository.find();
 };
 
 export const getExerciseById = async (uuid: string): Promise<Exercise> => {
-	return exerciseRepository.findOne({where: {id: uuid}});
+	return repository.findOne({where: {id: uuid}});
 };
 
 export const getExerciseByMuscleArea = async (
 	uuid: string
 ): Promise<Exercise[]> => {
-	return exerciseRepository.find({where: {muscleAreaId: uuid}});
+	return repository.find({where: {muscleAreaId: uuid}});
 };
