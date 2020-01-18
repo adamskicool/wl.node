@@ -1,1 +1,1 @@
-docker run -p 5000:5000 wl-node
+docker-compose up
