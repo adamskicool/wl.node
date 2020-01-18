@@ -2,12 +2,12 @@
 	{
 		"name": "default",
 		"type": "mysql",
-		"host": "localhost",
+		"host": "mysql-development",
 		"port": 3306,
 		"username": "root",
 		"password": "password",
-		"database": "workout_logger",
+		"database": "workout-logger-db",
 		"synchronize": false,
-		"entities": ["src/entity/*.ts"]
+		"entities": ["src/entity/**/*"]
 	}
 ]
