@@ -13,5 +13,5 @@ RUN npm run build
 COPY ormconfig.json ./dist/
 COPY .env ./dist/
 
-WORKDIR ./dist
-CMD src/index.js
+WORKDIR /usr/app/dist
+CMD node src/index.js
