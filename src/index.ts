@@ -1,5 +1,6 @@
 require('dotenv').config();
 import 'reflect-metadata';
+var bodyParser = require('body-parser');
 import {createConnection} from 'typeorm';
 const express = require('express');
 const route = require('./api/route');
@@ -7,7 +8,7 @@ const route = require('./api/route');
 createConnection()
 	.then(async (connection) => {
 		const app = express();
-
+		app.use(bodyParser.json());
 		route(app);
 
 		app.listen(process.env.API_PORT, () => {
