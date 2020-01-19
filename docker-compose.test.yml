@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mysql-testing:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: workout-logger-db
+  test:
+    build: .
+    command: npm run test
+    volumes:
+      - .:/app
+    depends_on: 
+      - "mysql-testing"
+  test-watch:
+    build: .
+    command: npm run test:watch
+    volumes:
+      - .:/app
+    depends_on: 
+      - "mysql-testing"
+  test-coverage:
+    build: .
+    command: npm run test:coverage
+    volumes:
+      - .:/app
+    depends_on: 
+      - "mysql-testing"
