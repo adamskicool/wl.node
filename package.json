@@ -24,11 +24,12 @@
 		"uuid-parse": "^1.1.0"
 	},
 	"scripts": {
-		"start": "node dist/index.js",
+		"start": "node dist/src/index.js",
 		"dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
 		"build": "tsc -b",
-		"test": "jest --watch",
-		"coverage": "jest --coverage",
+		"test": "jest --forceExit --runInBand",
+		"test:watch": "jest --forceExit --runInBand --bail --watchAll",
+		"test:coverage": "jest --forceExit --runInBand --coverage",
 		"tslint-check": "tslint-config-prettier-check ./tslint.json"
 	}
 }
