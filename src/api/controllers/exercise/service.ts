@@ -4,6 +4,7 @@
 
 import {getRepository, Repository} from 'typeorm';
 import {Exercise} from '../../../entity/Exercise';
+import {v4 as uuid} from 'uuid';
 
 const repository: Repository<Exercise> = getRepository(Exercise);
 
@@ -19,4 +20,8 @@ export const getExerciseByMuscleArea = async (
 	uuid: string
 ): Promise<Exercise[]> => {
 	return repository.find({where: {muscleAreaId: uuid}});
+};
+
+export const createExercise = async (payload: Partial<Exercise>) => {
+	return repository.save({...payload, id: uuid()});
 };
