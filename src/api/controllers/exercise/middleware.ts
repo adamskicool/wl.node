@@ -3,7 +3,9 @@ const Joi = require('@hapi/joi');
 const createExerciseSchema: any = Joi.object({
 	name: Joi.string().required(),
 	type: Joi.string(),
-	muscleAreaId: Joi.string().required()
+	muscleAreaId: Joi.string()
+		.guid()
+		.required()
 });
 
 export const verifyCreateExercise = (req, res, next) => {

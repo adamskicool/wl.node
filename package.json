@@ -23,6 +23,7 @@
 		"mysql": "^2.17.1",
 		"reflect-metadata": "^0.1.13",
 		"typeorm": "0.2.22",
+		"uuid": "^3.4.0",
 		"uuid-parse": "^1.1.0"
 	},
 	"scripts": {

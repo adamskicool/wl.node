@@ -5,7 +5,8 @@ const ExerciseRouter = require('express').Router();
 import {
 	getAllExercises,
 	getExerciseById,
-	getExerciseByMuscleArea
+	getExerciseByMuscleArea,
+	createExercise
 } from './service';
 import {Exercise} from '../../../entity/Exercise';
 import {ICreateExercise} from './type';
@@ -29,9 +30,8 @@ ExerciseRouter.get('/muscleArea/:id', async (req, res) => {
 });
 
 ExerciseRouter.post('', verifyCreateExercise, async (req, res) => {
-	// const exercise: ICreateExercise = req.body;
-	// console.log(exercise);
-	res.json({helloWorld: 'hello there world fucker!'});
+	const exercise: Exercise = await createExercise(req.body);
+	return res.json(exercise);
 });
 
 module.exports = ExerciseRouter;
