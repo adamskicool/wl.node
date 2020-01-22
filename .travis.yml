@@ -13,4 +13,4 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - sh runners/docker-compose-test.sh
+  - sh runners/docker-compose-test-ci.sh
