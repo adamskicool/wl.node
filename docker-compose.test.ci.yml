@@ -1,0 +1,24 @@
+version: '3'
+
+
+
+services:
+  mysql-testing:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: workout-logger-db
+  test-ci:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ci
+    environment:
+        - DB_HOST="localhost"
+        - DB_PORT=3306
+        - DB_SCHEMA="workout_logger"
+        - DB_USER="root"
+        - DB_PASSWORD="password"
+        - API_PORT=5000
+    command: npm run test
+    depends_on: 
+      - "mysql-testing"
