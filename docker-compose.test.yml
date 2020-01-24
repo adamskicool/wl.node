@@ -6,6 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: workout-logger-db
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
   test:
     build: .
     command: npm run test

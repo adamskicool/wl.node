@@ -10,6 +10,7 @@ services:
       - "3307:3306"
     volumes:
       - my-datavolume:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
   wl-node:
     build: .
     command: npm run dev
