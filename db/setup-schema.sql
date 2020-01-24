@@ -1,3 +1,7 @@
+USE workout_logger_db;
+
+ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'password';
+
 CREATE TABLE User (
 	id VARCHAR(36) NOT NULL,
 	firstName VARCHAR(100) NOT NULL DEFAULT '',

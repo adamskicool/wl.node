@@ -6,7 +6,7 @@
 		"port": 3306,
 		"username": "root",
 		"password": "password",
-		"database": "workout-logger-db",
+		"database": "workout_logger_db",
 		"synchronize": false,
 		"entities": ["src/entity/**/*"]
 	}
