@@ -7,7 +7,6 @@ To set up this project on you local machine, do the following:
 - download `Docker` desktop client
 - download MySQLWorkbench
 - run shell script `sh runners/docker-compose-dev.sh`
-- Log into database running in docker and copy-paste `db/setup-schema.sql`
 - Happy coding!
 
 ## How to run tests
