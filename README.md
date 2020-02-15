@@ -5,6 +5,10 @@ This is the REST API for the WorkoutLogger application. It uses TypeORM for data
 ## How to set up project locally
 To set up this project on you local machine, do the following:
 - download `Docker` desktop client
+- download MySQLWorkbench
+- run shell script `sh runners/docker-compose-dev.sh`
+- Log into database running in docker and copy-paste `db/setup-schema.sql`
+- Happy coding!
 
 ## How to run tests
 To run tests locally, use shell scripts in `runners` folder:

@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: workout_logger_db
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
+      - my-datavolume:/var/lib/mysql
   test:
     build: .
     command: npm run test
@@ -29,3 +29,6 @@ services:
       - .:/app
     depends_on: 
       - "mysql-testing"
+
+volumes:
+  my-datavolume:

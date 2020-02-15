@@ -1,13 +1,13 @@
 version: '3'
 
-
-
 services:
   mysql-testing:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: workout-logger-db
+      MYSQL_DATABASE: workout_logger_db
+    ports:
+      - "3307:3306"
   test-ci:
     build: 
       context: .
