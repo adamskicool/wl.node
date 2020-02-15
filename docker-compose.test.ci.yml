@@ -2,12 +2,13 @@ version: '3'
 
 services:
   mysql-testing:
-    image: mysql
+    build:
+      context: .
+      dockerfile: Dockerfile.db.test
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: workout_logger_db
-    ports:
-      - "3307:3306"
+    security_opt:
+      - seccomp:unconfined
   test-ci:
     build: 
       context: .
