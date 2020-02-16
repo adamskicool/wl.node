@@ -9,7 +9,7 @@ import { v4 as uuid } from "uuid";
 const repository: Repository<User> = getRepository(User);
 
 export const getUserByUsername = (username: string): Promise<User> => {
-  return repository.findOne({ where: username });
+  return repository.findOne({ where: { username } });
 };
 
 export const createUser = (

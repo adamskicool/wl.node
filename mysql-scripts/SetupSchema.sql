@@ -4,7 +4,7 @@ ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'password';
 
 CREATE TABLE User (
 	id VARCHAR(36) NOT NULL,
-    username VARCHAR(100) NOT NULL DEFAULT '',
+    username VARCHAR(100) NOT NULL UNIQUE DEFAULT '',
     password VARCHAR(100) NOT NULL DEFAULT '',
 	firstName VARCHAR(100) NOT NULL DEFAULT '',
     lastName VARCHAR(100) NOT NULL DEFAULT '',
