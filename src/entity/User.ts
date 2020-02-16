@@ -28,7 +28,8 @@ export class User {
   @Column("varchar", {
     nullable: false,
     length: 100,
-    name: "username"
+    name: "username",
+    unique: false
   })
   username: string;
 
