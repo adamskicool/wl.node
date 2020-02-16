@@ -5,6 +5,7 @@ import { User } from "../../../entity/User";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { IError } from "../type";
+import { ESQLError } from "../enum";
 
 const SALT_ROUNDS: number = parseInt(process.env.SALT_ROUNDS);
 
@@ -30,12 +31,20 @@ UserRouter.post("/signup", verifySignup, async (req, res) => {
     req.body.password,
     SALT_ROUNDS
   );
-  const user: User = await createUser(
-    req.body.username,
-    passwordHash,
-    req.body.email
-  );
-  res.status(400).json(user);
+  try {
+    const user: User = await createUser(
+      req.body.username,
+      passwordHash,
+      req.body.email
+    );
+    res.status(400).json(user);
+  } catch (error) {
+    if (error.code === ESQLError.ER_DUP_ENTRY) {
+      res.status(500).json({ message: "Username taken" } as IError);
+    } else {
+      res.status(500).json({ message: "Failed to create user" } as IError);
+    }
+  }
 });
 
 module.exports = UserRouter;
