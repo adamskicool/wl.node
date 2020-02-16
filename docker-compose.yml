@@ -16,11 +16,11 @@ services:
       timeout: 20s
       retries: 10
   wl-node:
+    depends_on:
+      - "mysql-development"
     build: .
     command: npm run dev
     ports:
       - "5000:5000"
     volumes:
       - .:/app
-    depends_on:
-      - "mysql-development"
