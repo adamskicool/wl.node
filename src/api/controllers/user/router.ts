@@ -12,7 +12,7 @@ UserRouter.post("/login", verifyLogin, async (req, res) => {
   const user: User = await getUserByUsername(req.body.username);
   const match = await bcrypt.compare(req.body.password, user.password);
   if (!match) {
-    res.json({ message: "No such user" } as IError);
+    res.status(500).json({ message: "No such user" } as IError);
     return;
   }
   const token = await jwt.sign(
@@ -22,7 +22,7 @@ UserRouter.post("/login", verifyLogin, async (req, res) => {
     process.env.JWT_SECRET,
     { expiresIn: 60 }
   );
-  res.json({ token }, 400);
+  res.status(400).json({ token });
 });
 
 UserRouter.post("/signup", verifySignup, async (req, res) => {
@@ -35,7 +35,7 @@ UserRouter.post("/signup", verifySignup, async (req, res) => {
     passwordHash,
     req.body.email
   );
-  res.json(user);
+  res.status(400).json(user);
 });
 
 module.exports = UserRouter;
