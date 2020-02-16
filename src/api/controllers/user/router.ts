@@ -20,7 +20,7 @@ UserRouter.post("/login", verifyLogin, async (req, res) => {
       data: user.username
     },
     process.env.JWT_SECRET,
-    { expiresIn: 60 }
+    { expiresIn: "1h" }
   );
   res.status(400).json({ token });
 });
