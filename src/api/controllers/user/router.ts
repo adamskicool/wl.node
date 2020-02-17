@@ -11,6 +11,10 @@ const SALT_ROUNDS: number = parseInt(process.env.SALT_ROUNDS);
 
 UserRouter.post("/login", verifyLogin, async (req, res) => {
   const user: User = await getUserByUsername(req.body.username);
+  if (!user) {
+    res.status(500).json({ message: "No such user" } as IError);
+    return;
+  }
   const match = await bcrypt.compare(req.body.password, user.password);
   if (!match) {
     res.status(500).json({ message: "No such user" } as IError);

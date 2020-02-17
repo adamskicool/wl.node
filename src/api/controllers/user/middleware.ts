@@ -24,11 +24,15 @@ const signupSchema: any = Joi.object({
 export const verifyLogin = (req, res, next) => {
   const body: any = req.body;
   const { result, error }: any = loginSchema.validate(body);
-  error ? res.json(error.details.map(detail => detail.message)) : next();
+  error
+    ? res.status(500).json(error.details.map(detail => detail.message))
+    : next();
 };
 
 export const verifySignup = (req, res, next) => {
   const body: any = req.body;
   const { result, error }: any = signupSchema.validate(body);
-  error ? res.json(error.details.map(detail => detail.message)) : next();
+  error
+    ? res.status(500).json(error.details.map(detail => detail.message))
+    : next();
 };
