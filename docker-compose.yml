@@ -1,23 +1,26 @@
-version: '3'
+version: "3"
 
 services:
   mysql-development:
-    image: mysql
+    build:
+      context: .
+      dockerfile: Dockerfile.db.test
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: workout-logger-db
     ports:
       - "3307:3306"
-    volumes:
-      - my-datavolume:/var/lib/mysql
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
   wl-node:
+    depends_on:
+      - "mysql-development"
     build: .
     command: npm run dev
-    ports: 
+    ports:
       - "5000:5000"
     volumes:
       - .:/app
-    depends_on: 
-      - "mysql-development"
-volumes:
-  my-datavolume:

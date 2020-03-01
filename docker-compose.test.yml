@@ -1,29 +1,32 @@
-version: '3'
+version: "3"
 
 services:
   mysql-testing:
-    image: mysql
+    build:
+      context: .
+      dockerfile: Dockerfile.db.test
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: workout-logger-db
+    security_opt:
+      - seccomp:unconfined
   test:
+    depends_on:
+      - "mysql-testing"
     build: .
     command: npm run test
     volumes:
       - .:/app
-    depends_on: 
-      - "mysql-testing"
   test-watch:
+    depends_on:
+      - "mysql-testing"
     build: .
     command: npm run test:watch
     volumes:
       - .:/app
-    depends_on: 
-      - "mysql-testing"
   test-coverage:
+    depends_on:
+      - "mysql-testing"
     build: .
     command: npm run test:coverage
     volumes:
       - .:/app
-    depends_on: 
-      - "mysql-testing"
