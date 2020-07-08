@@ -20,10 +20,12 @@ CREATE TABLE MuscleArea (
 
 CREATE TABLE Exercise (
 	id VARCHAR(36) NOT NULL,
+    userId VARCHAR(36),
     name VARCHAR(100) NOT NULL,
     type VARCHAR(100) DEFAULT '',
 	muscleAreaId VARCHAR(36) NOT NULL,
     PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES User (id),
     FOREIGN KEY (muscleAreaId) REFERENCES MuscleArea (id)
 );
 
@@ -34,8 +36,12 @@ CREATE TABLE WorkoutPreset (
 );
 
 CREATE TABLE PresetExercise (
-	presetId VARCHAR(36) NOT NULL,
+	id VARCHAR(36) NOT NULL,
+    nextPresetExerciseId VARCHAR(36), 
+    presetId VARCHAR(36) NOT NULL,
     exerciseId VARCHAR(36) NOT NULL,
+    reps INTEGER,
+    time INTEGER,
     FOREIGN KEY (presetId) REFERENCES WorkoutPreset (id),
     FOREIGN KEY (exerciseId) REFERENCES Exercise (id)
 );
