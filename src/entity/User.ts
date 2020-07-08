@@ -14,6 +14,7 @@ import {
   RelationId
 } from "typeorm";
 import { Workout } from "./Workout";
+import { Exercise } from "./Exercise";
 
 @Entity("User", { schema: "workout_logger" })
 export class User {
@@ -66,4 +67,11 @@ export class User {
     { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
   )
   workouts: Workout[];
+
+  @OneToMany(
+		() => Exercise,
+		(Exercise: Exercise) => Exercise.user,
+		{onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
+	)
+	exercises: Exercise[];
 }
