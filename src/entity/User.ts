@@ -37,9 +37,9 @@ export class User {
 	@Column('varchar', {
 		nullable: false,
 		length: 100,
-		name: 'lastName'
+		name: 'password'
 	})
-	lastName: string;
+	password: string;
 
 	@Column('varchar', {
 		nullable: false,
