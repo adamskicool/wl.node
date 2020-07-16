@@ -131,11 +131,11 @@ SET @exercise_french_press_uuid = uuid();
 INSERT INTO Exercise (id, userId, name, muscleAreaId) VALUES (@exercise_bicep_curl_uuid, @user_uuid, 'Bicep Curl (sitting)', @muscle_area_bicep_uuid);
 INSERT INTO Exercise (id, userId, name, muscleAreaId) VALUES (@exercise_french_press_uuid, @user_uuid, 'French Press', @muscle_area_tricep_uuid);
 
--- WorkoutPreset
+-- WorkoutPreset: add a workout preset
 SET @workout_preset_uuid = uuid();
 INSERT INTO WorkoutPreset (id, name) VALUES (@workout_preset_uuid, 'Arm Workout');
 
--- PresetExerciseSet: add some Sets to the preset exercise
+-- PresetExerciseSet: add some Sets to the workout preset
 SET @preset_exercise_bicep_curl_uuid = uuid();
 SET @preset_exercise_french_press_uuid = uuid();
 INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_french_press_uuid, null, @workout_preset_uuid, @exercise_bicep_curl_uuid, 10, 35);
