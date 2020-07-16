@@ -37,13 +37,6 @@ export class User {
 	@Column('varchar', {
 		nullable: false,
 		length: 100,
-		name: 'password'
-	})
-	password: string;
-
-	@Column('varchar', {
-		nullable: false,
-		length: 100,
 		name: 'email'
 	})
 	email: string;
