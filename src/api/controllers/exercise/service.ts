@@ -8,9 +8,13 @@ import {v4 as uuid} from 'uuid';
 
 const repository: Repository<Exercise> = getRepository(Exercise);
 
-export const getAllExercises = async (): Promise<Exercise[]> => {
-	return repository.find();
+export const getAllPublicExercises = async (): Promise<Exercise[]> => {
+	return repository.find({where: { userId: null }});
 };
+
+export const getAllUserExercises = async (userId: string): Promise<Exercise[]> => {
+	return repository.find({where: { userId }})
+;}
 
 export const getExerciseById = async (uuid: string): Promise<Exercise> => {
 	return repository.findOne({where: {id: uuid}});

@@ -16,6 +16,7 @@ import {
 import {MuscleArea} from './MuscleArea';
 import {WorkoutSet} from './WorkoutSet';
 import {WorkoutPreset} from './WorkoutPreset';
+import { User } from './User';
 
 @Entity('Exercise', {schema: 'workout_logger'})
 @Index('muscleAreaId', ['muscleArea'])
@@ -27,6 +28,13 @@ export class Exercise {
 		name: 'id'
 	})
 	id: string;
+
+	@Column('varchar', {
+		nullable: true,
+		length: 36,
+		name: 'userId'
+	})
+	userId: string;
 
 	@Column('varchar', {
 		nullable: false,
@@ -69,4 +77,12 @@ export class Exercise {
 		(WorkoutPreset: WorkoutPreset) => WorkoutPreset.exercises
 	)
 	workoutPresets: WorkoutPreset[];
+
+	@ManyToOne(
+		() => User,
+		(User: User) => User.exercises,
+		{nullable: false, onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
+	)
+	@JoinColumn({name: 'userId'})
+	user: User | null;
 }

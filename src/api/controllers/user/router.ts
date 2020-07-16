@@ -27,7 +27,7 @@ UserRouter.post('/login', verifyLogin, async (req, res) => {
 		process.env.JWT_SECRET,
 		{expiresIn: '1h'}
 	);
-	res.status(200).json({token});
+	res.status(200).json({token, username: user.username});
 });
 
 UserRouter.post('/signup', verifySignup, async (req, res) => {
@@ -41,7 +41,14 @@ UserRouter.post('/signup', verifySignup, async (req, res) => {
 			passwordHash,
 			req.body.email
 		);
-		res.status(200).json(user);
+		const token = await jwt.sign(
+			{
+				data: user.username
+			},
+			process.env.JWT_SECRET,
+			{expiresIn: '1h'}
+		);
+		res.status(200).json({token, username: user.username});
 	} catch (error) {
 		if (error.code === ESQLError.ER_DUP_ENTRY) {
 			res.status(500).json({message: 'Username taken'} as IError);
