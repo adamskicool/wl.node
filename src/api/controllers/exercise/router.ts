@@ -3,7 +3,7 @@
  */
 const ExerciseRouter = require('express').Router();
 import {
-	getAllExercises,
+	getAllPublicExercises,
 	getExerciseById,
 	getExerciseByMuscleArea,
 	createExercise
@@ -12,8 +12,8 @@ import {Exercise} from '../../../entity/Exercise';
 import {ICreateExercise} from './type';
 import {verifyCreateExercise} from './middleware';
 
-ExerciseRouter.get('/all', async (_, res) => {
-	const exercises: Exercise[] = await getAllExercises();
+ExerciseRouter.get('/public', async (_, res) => {
+	const exercises: Exercise[] = await getAllPublicExercises();
 	return res.json(exercises);
 });
 
