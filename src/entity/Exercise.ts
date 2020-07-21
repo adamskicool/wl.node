@@ -1,88 +1,55 @@
 import {
-	BaseEntity,
-	Column,
-	Entity,
-	Index,
-	JoinColumn,
-	JoinTable,
-	ManyToMany,
-	ManyToOne,
-	OneToMany,
-	OneToOne,
-	PrimaryColumn,
-	PrimaryGeneratedColumn,
-	RelationId
-} from 'typeorm';
-import {MuscleArea} from './MuscleArea';
-import {WorkoutSet} from './WorkoutSet';
-import {WorkoutPreset} from './WorkoutPreset';
-import { User } from './User';
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
+import { User } from "./User";
+import { MuscleArea } from "./MuscleArea";
+import { PresetExerciseSet } from "./PresetExerciseSet";
+import { WorkoutSet } from "./WorkoutSet";
 
-@Entity('Exercise', {schema: 'workout_logger'})
-@Index('muscleAreaId', ['muscleArea'])
+@Index("muscleAreaId", ["muscleAreaId"], {})
+@Index("userId", ["userId"], {})
+@Entity("Exercise", { schema: "workout_logger_db" })
 export class Exercise {
-	@Column('varchar', {
-		nullable: false,
-		primary: true,
-		length: 36,
-		name: 'id'
-	})
-	id: string;
+  @Column("varchar", { primary: true, name: "id", length: 36 })
+  id: string;
 
-	@Column('varchar', {
-		nullable: true,
-		length: 36,
-		name: 'userId'
-	})
-	userId: string;
+  @Column("varchar", { name: "userId", nullable: true, length: 36 })
+  userId: string | null;
 
-	@Column('varchar', {
-		nullable: false,
-		length: 100,
-		name: 'name'
-	})
-	name: string;
+  @Column("varchar", { name: "name", length: 100 })
+  name: string;
 
-	@Column('varchar', {
-		nullable: true,
-		length: 100,
-		name: 'type'
-	})
-	type: string | null;
+  @Column("varchar", { name: "type", nullable: true, length: 100 })
+  type: string | null;
 
-	@Column('varchar', {
-		nullable: false,
-		length: 36,
-		name: 'muscleAreaId'
-	})
-	muscleAreaId: string;
+  @Column("varchar", { name: "muscleAreaId", nullable: true, length: 36 })
+  muscleAreaId: string | null;
 
-	@ManyToOne(
-		() => MuscleArea,
-		(MuscleArea: MuscleArea) => MuscleArea.exercises,
-		{nullable: false, onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
-	)
-	@JoinColumn({name: 'muscleAreaId'})
-	muscleArea: MuscleArea | null;
+  @ManyToOne(() => User, (user) => user.exercises, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "userId", referencedColumnName: "id" }])
+  user: User;
 
-	@OneToMany(
-		() => WorkoutSet,
-		(WorkoutSet: WorkoutSet) => WorkoutSet.exercise,
-		{onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
-	)
-	workoutSets: WorkoutSet[];
+  @ManyToOne(() => MuscleArea, (muscleArea) => muscleArea.exercises, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "muscleAreaId", referencedColumnName: "id" }])
+  muscleArea: MuscleArea;
 
-	@ManyToMany(
-		() => WorkoutPreset,
-		(WorkoutPreset: WorkoutPreset) => WorkoutPreset.exercises
-	)
-	workoutPresets: WorkoutPreset[];
+  @OneToMany(
+    () => PresetExerciseSet,
+    (presetExerciseSet) => presetExerciseSet.exercise
+  )
+  presetExerciseSets: PresetExerciseSet[];
 
-	@ManyToOne(
-		() => User,
-		(User: User) => User.exercises,
-		{nullable: false, onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
-	)
-	@JoinColumn({name: 'userId'})
-	user: User | null;
+  @OneToMany(() => WorkoutSet, (workoutSet) => workoutSet.exercise)
+  workoutSets: WorkoutSet[];
 }

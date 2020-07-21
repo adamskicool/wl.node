@@ -1,88 +1,47 @@
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	Index,
-	JoinColumn,
-	JoinTable,
-	ManyToMany,
-	ManyToOne,
-	OneToMany,
-	OneToOne,
-	PrimaryColumn,
-	PrimaryGeneratedColumn,
-	RelationId
-} from 'typeorm';
-import {Workout} from './Workout';
-import {Exercise} from './Exercise';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Workout } from "./Workout";
+import { Exercise } from "./Exercise";
 
-@Entity('WorkoutSet', {schema: 'workout_logger'})
-@Index('workoutId', ['workout'])
-@Index('exerciseId', ['exercise'])
+@Index("exerciseId", ["exerciseId"], {})
+@Index("workoutId", ["workoutId"], {})
+@Entity("WorkoutSet", { schema: "workout_logger_db" })
 export class WorkoutSet {
-	@Column('varchar', {
-		nullable: false,
-		primary: true,
-		length: 36,
-		name: 'id'
-	})
-	id: string;
+  @Column("varchar", { primary: true, name: "id", length: 36 })
+  id: string;
 
-	@Column('varchar', {
-		nullable: false,
-		length: 36,
-		name: 'workoutId'
-	})
-	workoutId: string;
+  @Column("varchar", { name: "workoutId", length: 36 })
+  workoutId: string;
 
-	@ManyToOne(
-		() => Workout,
-		(Workout: Workout) => Workout.workoutSets,
-		{nullable: false, onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
-	)
-	@JoinColumn({name: 'workoutId'})
-	workout: Workout | null;
+  @Column("varchar", { name: "exerciseId", length: 36 })
+  exerciseId: string;
 
-	@Column('varchar', {
-		nullable: false,
-		length: 36,
-		name: 'exerciseId'
-	})
-	exerciseId: string;
+  @Column("int", { name: "weight", default: () => "'0'" })
+  weight: number;
 
-	@ManyToOne(
-		() => Exercise,
-		(Exercise: Exercise) => Exercise.workoutSets,
-		{nullable: false, onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
-	)
-	@JoinColumn({name: 'exerciseId'})
-	exercise: Exercise | null;
+  @Column("int", { name: "time", default: () => "'0'" })
+  time: number;
 
-	@Column('int', {
-		nullable: false,
-		default: () => "'0'",
-		name: 'weight'
-	})
-	weight: number;
+  @Column("int", { name: "repetitions", default: () => "'0'" })
+  repetitions: number;
 
-	@Column('int', {
-		nullable: false,
-		default: () => "'0'",
-		name: 'time'
-	})
-	time: number;
+  @Column("timestamp", {
+    name: "timestamp",
+    nullable: true,
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  timestamp: Date | null;
 
-	@Column('int', {
-		nullable: false,
-		default: () => "'0'",
-		name: 'repetitions'
-	})
-	repetitions: number;
+  @ManyToOne(() => Workout, (workout) => workout.workoutSets, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "workoutId", referencedColumnName: "id" }])
+  workout: Workout;
 
-	@Column('timestamp', {
-		nullable: true,
-		default: () => 'CURRENT_TIMESTAMP',
-		name: 'timestamp'
-	})
-	timestamp: Date | null;
+  @ManyToOne(() => Exercise, (exercise) => exercise.workoutSets, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "exerciseId", referencedColumnName: "id" }])
+  exercise: Exercise;
 }
