@@ -35,6 +35,7 @@ CREATE TABLE WorkoutPreset (
 	id VARCHAR(36) NOT NULL,
     userId VARCHAR(36) NOT NULL,
     name VARCHAR(100) NOT NULL,
+    description TEXT,
     FOREIGN KEY (userId) REFERENCES User (id),
     PRIMARY KEY (id)
 );
@@ -136,7 +137,9 @@ INSERT INTO Exercise (id, userId, name, muscleAreaId) VALUES (@exercise_french_p
 
 -- WorkoutPreset: add a workout preset
 SET @workout_preset_uuid = uuid();
-INSERT INTO WorkoutPreset (id, userId, name) VALUES (@workout_preset_uuid, @user_uuid, 'Arm Workout');
+SET @workout_preset_2_uuid = uuid();
+INSERT INTO WorkoutPreset (id, userId, name, description) VALUES (@workout_preset_uuid, @user_uuid, 'Arm Workout', 'Intense arm workout focusing on both bicep and tricep with a staggering two whole exerises with one set each, hold on... this is about to get stinking sweaty.');
+INSERT INTO WorkoutPreset (id, userId, name, description) VALUES (@workout_preset_2_uuid, @user_uuid, 'Leg workout', 'This workout will not be very good, since it does not contain any sets, but you can take a lap around the house of something...');
 
 -- PresetExerciseSet: add some Sets to the workout preset
 SET @preset_exercise_bicep_curl_uuid = uuid();

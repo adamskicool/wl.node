@@ -22,7 +22,7 @@ UserRouter.post('/login', verifyLogin, async (req, res) => {
 	}
 	const token = await jwt.sign(
 		{
-			data: user.username
+			userId: user.id,
 		},
 		process.env.JWT_SECRET,
 		{expiresIn: '1h'}
@@ -43,7 +43,7 @@ UserRouter.post('/signup', verifySignup, async (req, res) => {
 		);
 		const token = await jwt.sign(
 			{
-				data: user.username
+				data: user.username,
 			},
 			process.env.JWT_SECRET,
 			{expiresIn: '1h'}

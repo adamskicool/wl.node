@@ -10,5 +10,8 @@ export const getWorkoutPresetById = (id: string): Promise<WorkoutPreset> => {
 export const getWorkoutPresetByUserId = (
 	userId: string
 ): Promise<WorkoutPreset[]> => {
-	return repository.find({where: {userId}, relations: ['presetExerciseSets']});
+	return repository.find({
+		where: {userId},
+		relations: ['presetExerciseSets'],
+	});
 };
