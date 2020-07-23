@@ -11,10 +11,10 @@ MuscleAreaRouter.get('/all', async (_, res) => {
 	return res.json(muscleAreas);
 });
 
-MuscleAreaRouter.get('/:id', async (req, res) => {
-	const id: string = req.params.id;
-	const muscleArea: MuscleArea = await getMuscleAreaById(id);
-	return res.json(muscleArea);
-});
+// MuscleAreaRouter.get('/:id', async (req, res) => {
+// 	const id: string = req.params.id;
+// 	const muscleArea: MuscleArea = await getMuscleAreaById(id);
+// 	return res.json(muscleArea);
+// });
 
 module.exports = MuscleAreaRouter;

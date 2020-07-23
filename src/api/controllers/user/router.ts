@@ -6,6 +6,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import {IError} from '../type';
 import {ESQLError} from '../enum';
+import {signToken} from './helper';
 
 const SALT_ROUNDS: number = parseInt(process.env.SALT_ROUNDS);
 
@@ -20,13 +21,7 @@ UserRouter.post('/login', verifyLogin, async (req, res) => {
 		res.status(500).json({message: 'No such user'} as IError);
 		return;
 	}
-	const token = await jwt.sign(
-		{
-			userId: user.id,
-		},
-		process.env.JWT_SECRET,
-		{expiresIn: '1h'}
-	);
+	const token = await signToken(user.id);
 	res.status(200).json({token, username: user.username});
 });
 
@@ -41,13 +36,7 @@ UserRouter.post('/signup', verifySignup, async (req, res) => {
 			passwordHash,
 			req.body.email
 		);
-		const token = await jwt.sign(
-			{
-				data: user.username,
-			},
-			process.env.JWT_SECRET,
-			{expiresIn: '1h'}
-		);
+		const token = await signToken(user.id);
 		res.status(200).json({token, username: user.username});
 	} catch (error) {
 		if (error.code === ESQLError.ER_DUP_ENTRY) {

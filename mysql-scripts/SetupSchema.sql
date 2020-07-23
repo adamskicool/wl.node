@@ -142,7 +142,20 @@ INSERT INTO WorkoutPreset (id, userId, name, description) VALUES (@workout_prese
 INSERT INTO WorkoutPreset (id, userId, name, description) VALUES (@workout_preset_2_uuid, @user_uuid, 'Leg workout', 'This workout will not be very good, since it does not contain any sets, but you can take a lap around the house of something...');
 
 -- PresetExerciseSet: add some Sets to the workout preset
-SET @preset_exercise_bicep_curl_uuid = uuid();
 SET @preset_exercise_french_press_uuid = uuid();
-INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_french_press_uuid, null, @workout_preset_uuid, @exercise_bicep_curl_uuid, 10, 35);
-INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_bicep_curl_uuid, @preset_exercise_french_press_uuid, @workout_preset_uuid, @exercise_bicep_curl_uuid, 15, 20);
+SET @preset_exercise_french_press_uuid2 = uuid();
+SET @preset_exercise_french_press_uuid3 = uuid();
+SET @preset_exercise_french_press_uuid4 = uuid();
+SET @preset_exercise_bicep_curl_uuid = uuid();
+SET @preset_exercise_bicep_curl_uuid2 = uuid();
+SET @preset_exercise_bicep_curl_uuid3 = uuid();
+SET @preset_exercise_bicep_curl_uuid4 = uuid();
+
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_french_press_uuid, @preset_exercise_french_press_uuid2, @workout_preset_uuid, @exercise_french_press_uuid, 15, 20);
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_french_press_uuid2, @preset_exercise_french_press_uuid3, @workout_preset_uuid, @exercise_french_press_uuid, 12, 25);
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_french_press_uuid3, @preset_exercise_french_press_uuid4, @workout_preset_uuid, @exercise_french_press_uuid, 10, 30);
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_french_press_uuid4, @preset_exercise_bicep_curl_uuid, @workout_preset_uuid, @exercise_french_press_uuid, 6, 35);
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_bicep_curl_uuid, @preset_exercise_bicep_curl_uuid2, @workout_preset_uuid, @exercise_bicep_curl_uuid, 20, 15);
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_bicep_curl_uuid2, @preset_exercise_bicep_curl_uuid3, @workout_preset_uuid, @exercise_bicep_curl_uuid, 12, 20);
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_bicep_curl_uuid3, @preset_exercise_bicep_curl_uuid4, @workout_preset_uuid, @exercise_bicep_curl_uuid, 10, 22);
+INSERT INTO PresetExerciseSet (id, nextPresetExerciseId, presetId, exerciseId, reps, weight) VALUES (@preset_exercise_bicep_curl_uuid4, null, @workout_preset_uuid, @exercise_bicep_curl_uuid, 6, 24);
