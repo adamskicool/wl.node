@@ -1,50 +1,43 @@
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	Index,
-	JoinColumn,
-	JoinTable,
-	ManyToMany,
-	ManyToOne,
-	OneToMany,
-	OneToOne,
-	PrimaryColumn,
-	PrimaryGeneratedColumn,
-	RelationId
-} from 'typeorm';
+import {Column, Entity, Index, JoinColumn, ManyToOne, OneToMany} from 'typeorm';
+import {PresetExerciseSet} from './PresetExerciseSet';
 import {Workout} from './Workout';
-import {Exercise} from './Exercise';
+import {User} from './User';
 
-@Entity('WorkoutPreset', {schema: 'workout_logger'})
+@Index('userId', ['userId'], {})
+@Entity('WorkoutPreset', {schema: 'workout_logger_db'})
 export class WorkoutPreset {
-	@Column('varchar', {
-		nullable: false,
-		primary: true,
-		length: 36,
-		name: 'id'
-	})
+	@Column('varchar', {primary: true, name: 'id', length: 36})
 	id: string;
 
-	@Column('varchar', {
-		nullable: false,
-		length: 100,
-		name: 'name'
-	})
+	@Column('varchar', {name: 'userId', length: 36})
+	userId: string;
+
+	@Column('varchar', {name: 'name', length: 100})
 	name: string;
+
+	@Column('text', {name: 'description', nullable: true})
+	description: string | null;
+
+	@OneToMany(
+		() => PresetExerciseSet,
+		(presetExerciseSet) => presetExerciseSet.preset
+	)
+	presetExerciseSets: PresetExerciseSet[];
 
 	@OneToMany(
 		() => Workout,
-		(Workout: Workout) => Workout.preset,
-		{onDelete: 'NO ACTION', onUpdate: 'NO ACTION'}
+		(workout) => workout.preset
 	)
 	workouts: Workout[];
 
-	@ManyToMany(
-		() => Exercise,
-		(Exercise: Exercise) => Exercise.workoutPresets,
-		{nullable: false}
+	@ManyToOne(
+		() => User,
+		(user) => user.workoutPresets,
+		{
+			onDelete: 'NO ACTION',
+			onUpdate: 'NO ACTION',
+		}
 	)
-	@JoinTable({name: 'PresetExercise'})
-	exercises: Exercise[];
+	@JoinColumn([{name: 'userId', referencedColumnName: 'id'}])
+	user: User;
 }
