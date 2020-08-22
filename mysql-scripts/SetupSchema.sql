@@ -3,7 +3,7 @@ USE workout_logger_db;
 ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'password';
 
 CREATE TABLE User (
-	id VARCHAR(36) NOT NULL,
+	id VARCHAR(36) DEFAULT (uuid()),
     username VARCHAR(100) NOT NULL UNIQUE DEFAULT '',
     password VARCHAR(100) NOT NULL DEFAULT '',
 	firstName VARCHAR(100) NOT NULL DEFAULT '',
@@ -14,14 +14,14 @@ CREATE TABLE User (
 );
 
 CREATE TABLE MuscleArea (
-	id VARCHAR(36) NOT NULL,
+	id VARCHAR(36) DEFAULT (uuid()),
     name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );
 
 
 CREATE TABLE Exercise (
-	id VARCHAR(36) NOT NULL,
+	id VARCHAR(36) DEFAULT (uuid()),
     userId VARCHAR(36),
     name VARCHAR(100) NOT NULL,
     type VARCHAR(100) DEFAULT '',
@@ -32,7 +32,7 @@ CREATE TABLE Exercise (
 );
 
 CREATE TABLE WorkoutPreset (
-	id VARCHAR(36) NOT NULL,
+	id VARCHAR(36) DEFAULT (uuid()),
     userId VARCHAR(36) NOT NULL,
     name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -41,7 +41,7 @@ CREATE TABLE WorkoutPreset (
 );
 
 CREATE TABLE PresetExerciseSet (
-	id VARCHAR(36) NOT NULL,
+	id VARCHAR(36) DEFAULT (uuid()),
     nextPresetExerciseId VARCHAR(36), 
     presetId VARCHAR(36) NOT NULL,
     exerciseId VARCHAR(36) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE PresetExerciseSet (
 );
 
 CREATE TABLE Workout (
-	id VARCHAR(36) NOT NULL,
+	id VARCHAR(36) DEFAULT (uuid()),
     name TEXT NOT NULL,
 	userId VARCHAR(36) NOT NULL,
     presetId VARCHAR(36) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE Workout (
 );
 
 CREATE TABLE WorkoutSet (
-	id VARCHAR(36) NOT NULL,
+	id VARCHAR(36) DEFAULT (uuid()),
     workoutId VARCHAR(36) NOT NULL,
     exerciseId VARCHAR(36) NOT NULL,
     weight INTEGER NOT NULL DEFAULT 0,
@@ -78,46 +78,9 @@ CREATE TABLE WorkoutSet (
 );
 
 
--- Add triggers to automatically add uuid to the tables
-CREATE TRIGGER add_user_uuid
-  BEFORE INSERT 
-  ON User FOR EACH ROW
-    SET new.id = COALESCE(new.id, uuid());
-
-CREATE TRIGGER add_musclearea_uuid
-  BEFORE INSERT 
-  ON MuscleArea FOR EACH ROW
-    SET new.id = COALESCE(new.id, uuid());
-
-CREATE TRIGGER add_exercise_uuid
-  BEFORE INSERT 
-  ON Exercise FOR EACH ROW
-    SET new.id = COALESCE(new.id, uuid());
-
-CREATE TRIGGER add_workout_preset_uuid
-  BEFORE INSERT 
-  ON WorkoutPreset FOR EACH ROW
-    SET new.id = COALESCE(new.id, uuid());
-
-
-CREATE TRIGGER add_preset_exercise_set_uuid
-  BEFORE INSERT 
-  ON PresetExerciseSet FOR EACH ROW
-    SET new.id = COALESCE(new.id, uuid());
-
-CREATE TRIGGER add_workout_uuid
-  BEFORE INSERT 
-  ON Workout FOR EACH ROW
-    SET new.id = COALESCE(new.id, uuid());
-
-CREATE TRIGGER add_workout_set_uuid
-  BEFORE INSERT 
-  ON WorkoutSet FOR EACH ROW
-    SET new.id = COALESCE(new.id, uuid());
-
-
 
 -- INITIAL: Add starter data.
+
 
 -- User: username: root, password: password
 SET @user_uuid = uuid();
