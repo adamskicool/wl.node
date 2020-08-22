@@ -1,5 +1,5 @@
 export interface ICreateExercise {
-	name: string;
-	type?: string;
-	muscleAreaId: string;
+  name: string;
+  type?: string;
+  muscleAreaId: string;
 }
