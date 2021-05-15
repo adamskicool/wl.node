@@ -3,7 +3,7 @@
  */
 
 import {getRepository, Repository} from 'typeorm';
-import {MuscleArea} from '../../../entity/MuscleArea';
+import {MuscleArea} from '../../../typeorm-models/MuscleArea';
 
 const repository: Repository<MuscleArea> = getRepository(MuscleArea);
 

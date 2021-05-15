@@ -1,7 +1,7 @@
 const UserRouter = require('express').Router();
 import {verifyLogin, verifySignup} from './middleware';
 import {getUserByUsername, createUser} from './service';
-import {User} from '../../../entity/User';
+import {User} from '../../../typeorm-models/User';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import {IError} from '../type';

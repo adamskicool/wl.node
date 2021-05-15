@@ -2,7 +2,7 @@
  * Express router for muscle area related requests
  */
 import {getAllMuscleAreas, getMuscleAreaById} from './service';
-import {MuscleArea} from '../../../entity/MuscleArea';
+import {MuscleArea} from '../../../typeorm-models/MuscleArea';
 
 const MuscleAreaRouter = require('express').Router();
 
