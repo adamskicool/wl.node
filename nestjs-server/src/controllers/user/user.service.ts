@@ -1,5 +1,6 @@
 /**
  * Service for login related database queries
+ * TODO: Refactor into nestjs injectable class.
  */
 
 import { User } from '../../typeorm-models';
