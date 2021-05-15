@@ -24,3 +24,12 @@ services:
       - "5000:5000"
     volumes:
       - .:/app
+  nestjs-server:
+    depends_on:
+      - "mysql-development"
+    build: .
+    command: yarn workspace @workout-logger/nestjs-server run start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
