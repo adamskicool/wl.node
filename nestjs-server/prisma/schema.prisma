@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Exercise {
+  id                String              @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  userId            String?             @db.VarChar(36)
+  name              String              @db.VarChar(100)
+  type              String?             @default("") @db.VarChar(100)
+  muscleAreaId      String?             @db.VarChar(36)
+  MuscleArea        MuscleArea?         @relation(fields: [muscleAreaId], references: [id])
+  User              User?               @relation(fields: [userId], references: [id])
+  PresetExerciseSet PresetExerciseSet[]
+  WorkoutSet        WorkoutSet[]
+
+  @@index([muscleAreaId], name: "muscleAreaId")
+  @@index([userId], name: "userId")
+}
+
+model MuscleArea {
+  id       String     @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  name     String     @db.VarChar(100)
+  Exercise Exercise[]
+}
+
+model PresetExerciseSet {
+  id                   String        @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  nextPresetExerciseId String?       @db.VarChar(36)
+  presetId             String        @db.VarChar(36)
+  exerciseId           String        @db.VarChar(36)
+  reps                 Int?
+  weightGuide          String?       @db.VarChar(100)
+  time                 Int?
+  Exercise             Exercise      @relation(fields: [exerciseId], references: [id])
+  WorkoutPreset        WorkoutPreset @relation(fields: [presetId], references: [id])
+
+  @@index([exerciseId], name: "exerciseId")
+  @@index([presetId], name: "presetId")
+}
+
+model User {
+  id            String          @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  username      String          @unique @default("") @db.VarChar(100)
+  password      String          @default("") @db.VarChar(100)
+  firstName     String          @default("") @db.VarChar(100)
+  lastName      String          @default("") @db.VarChar(100)
+  email         String          @default("") @db.VarChar(100)
+  googleId      String?         @db.Text
+  Exercise      Exercise[]
+  Workout       Workout[]
+  WorkoutPreset WorkoutPreset[]
+}
+
+model Workout {
+  id            String        @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  name          String        @db.Text
+  userId        String        @db.VarChar(36)
+  presetId      String        @db.VarChar(36)
+  timestamp     DateTime?     @default(now()) @db.Timestamp(0)
+  WorkoutPreset WorkoutPreset @relation(fields: [presetId], references: [id])
+  User          User          @relation(fields: [userId], references: [id])
+  WorkoutSet    WorkoutSet[]
+
+  @@index([presetId], name: "presetId")
+  @@index([userId], name: "userId")
+}
+
+model WorkoutPreset {
+  id                String              @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  userId            String              @db.VarChar(36)
+  name              String              @db.VarChar(100)
+  description       String?             @db.Text
+  User              User                @relation(fields: [userId], references: [id])
+  PresetExerciseSet PresetExerciseSet[]
+  Workout           Workout[]
+
+  @@index([userId], name: "userId")
+}
+
+model WorkoutSet {
+  id          String    @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  workoutId   String    @db.VarChar(36)
+  exerciseId  String    @db.VarChar(36)
+  weight      Int       @default(0)
+  time        Int       @default(0)
+  repetitions Int       @default(0)
+  timestamp   DateTime? @default(now()) @db.Timestamp(0)
+  Exercise    Exercise  @relation(fields: [exerciseId], references: [id])
+  Workout     Workout   @relation(fields: [workoutId], references: [id])
+
+  @@index([exerciseId], name: "exerciseId")
+  @@index([workoutId], name: "workoutId")
+}
