@@ -16,7 +16,6 @@ import {
 } from '../../types';
 import { hash, compare as compareHash } from 'bcrypt';
 import { sign as signJWT } from 'jsonwebtoken';
-import { v4 as uuid } from 'uuid';
 
 @Controller('/user')
 export class UserController {
@@ -65,7 +64,6 @@ export class UserController {
     }
     const { id: userId }: User = await this.prismaService.user.create({
       data: {
-        id: uuid(), //TODO: Prisma should do this for us. Try using uuid() in the schema.prisma file.
         username,
         password: passwordHash,
         email,

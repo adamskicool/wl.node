@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Exercise {
-  id                String              @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id                String              @id @default(uuid()) @db.VarChar(36)
   userId            String?             @db.VarChar(36)
   name              String              @db.VarChar(100)
   type              String?             @default("") @db.VarChar(100)
@@ -23,13 +23,13 @@ model Exercise {
 }
 
 model MuscleArea {
-  id       String     @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id       String     @id @default(uuid()) @db.VarChar(36)
   name     String     @db.VarChar(100)
   Exercise Exercise[]
 }
 
 model PresetExerciseSet {
-  id                   String        @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id                   String        @id @default(uuid()) @db.VarChar(36)
   nextPresetExerciseId String?       @db.VarChar(36)
   presetId             String        @db.VarChar(36)
   exerciseId           String        @db.VarChar(36)
@@ -44,7 +44,7 @@ model PresetExerciseSet {
 }
 
 model User {
-  id            String          @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id            String          @id @default(uuid()) @db.VarChar(36)
   username      String          @unique @default("") @db.VarChar(100)
   password      String          @default("") @db.VarChar(100)
   firstName     String          @default("") @db.VarChar(100)
@@ -57,7 +57,7 @@ model User {
 }
 
 model Workout {
-  id            String        @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id            String        @id @default(uuid()) @db.VarChar(36)
   name          String        @db.Text
   userId        String        @db.VarChar(36)
   presetId      String        @db.VarChar(36)
@@ -71,7 +71,7 @@ model Workout {
 }
 
 model WorkoutPreset {
-  id                String              @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id                String              @id @default(uuid()) @db.VarChar(36)
   userId            String              @db.VarChar(36)
   name              String              @db.VarChar(100)
   description       String?             @db.Text
@@ -83,7 +83,7 @@ model WorkoutPreset {
 }
 
 model WorkoutSet {
-  id          String    @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id          String    @id @default(uuid()) @db.VarChar(36)
   workoutId   String    @db.VarChar(36)
   exerciseId  String    @db.VarChar(36)
   weight      Int       @default(0)
