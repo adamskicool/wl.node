@@ -1,5 +1,5 @@
 import {getRepository, Repository} from 'typeorm';
-import {WorkoutPreset} from '../../../entity/WorkoutPreset';
+import {WorkoutPreset} from '../../../typeorm-models/WorkoutPreset';
 
 const repository: Repository<WorkoutPreset> = getRepository(WorkoutPreset);
 

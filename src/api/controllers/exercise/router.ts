@@ -9,7 +9,7 @@ import {
 	createExercise,
 	getAllUserExercises,
 } from './service';
-import {Exercise} from '../../../entity/Exercise';
+import {Exercise} from '../../../typeorm-models/Exercise';
 import {ICreateExercise} from './type';
 import {verifyCreateExercise} from './middleware';
 import * as jwt from 'jsonwebtoken';
@@ -23,7 +23,6 @@ ExerciseRouter.get('/public', async (_, res) => {
 ExerciseRouter.get('/user', async (req, res) => {
 	const token: string = req.headers.token;
 	const {userId}: TokenData = jwt.verify(token, process.env.JWT_SECRET);
-	console.log(userId);
 	const exercises: Exercise[] = await getAllUserExercises(userId);
 	return res.json(exercises);
 });

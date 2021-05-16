@@ -3,7 +3,7 @@
  */
 
 import {getRepository, Repository} from 'typeorm';
-import {User} from '../../../entity/User';
+import {User} from '../../../typeorm-models/User';
 
 const repository: Repository<User> = getRepository(User);
 
@@ -19,6 +19,6 @@ export const createUser = (
 	return repository.save({
 		username,
 		password: passwordHash,
-		email
+		email,
 	});
 };

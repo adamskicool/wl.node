@@ -2,6 +2,10 @@
 	"name": "WorkoutLogger",
 	"version": "0.0.1",
 	"description": "Workout Logger API",
+	"private": true,
+	"workspaces": [
+		"nestjs-server/**"
+	],
 	"devDependencies": {
 		"@types/jest": "^24.0.25",
 		"@types/node": "^13.1.4",
